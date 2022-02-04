@@ -1,0 +1,189 @@
+//Task 1:
+/*
+Представьте себя инженером проектировщиком телевизоров во времена, когда эпоха телевещания только набирала обороты. Вам поступила задача создать устройство для просмотра эфира в домашних условиях "Телевизор в каждую семью".
+
+Вам нужно реализовать перечисление "Телевизионный канал" с 5-7 каналами.
+
+Алгоритм выполнения
+
+Реализуйте класс "Телевизор". У него должны быть состояния:
+фирма/модель (реализовать одним полем);
+включен/выключен;
+текущий телеканал;
+У него должно быть поведение:
+
+показать, что сейчас по телеку
+Вызовите метод и покажите, что сейчас по телеку.
+
+Сделайте изменение состояний телевизора (на свой выбор).
+
+Повторите вызов метода и покажите, что сейчас по телеку.
+*/
+//Решение
+enum Chanels: String {
+    case first = "Первый"
+    case russia1 = "Россия 1"
+    case russia2 = "Россия 2"
+    case russia24 = "Россия 24"
+    case sts = "СТС"
+    case ntv = "НТВ"
+    case tnt = "ТНТ"
+}
+class TV {
+    var brandModel: String
+    var isON: Bool
+    var currentChanel: Chanels
+    let originalText = "На канале"
+    init(brandModel: String, isON: Bool, currentChanel: Chanels) {
+        self.brandModel = brandModel
+        self.isON = isON
+        self.currentChanel = currentChanel
+    }
+    func broadcast () {
+        if isON {
+        switch currentChanel {
+        case .first:
+            print ("\(self.originalText) \(Chanels.first.rawValue) в эфире прогноз погоды.")
+        case .russia1:
+            print("\(self.originalText) \(Chanels.russia1.rawValue) в эфире программа Вести.")
+        case .russia2:
+            print("\(self.originalText) \(Chanels.russia2.rawValue) в эфире европейские новости.")
+        case .russia24:
+            print("\(self.originalText) \(Chanels.russia24.rawValue) в эфире реклама.")
+        case .sts:
+            print("\(self.originalText) \(Chanels.sts.rawValue) в эфире Форт-Боярд.")
+        case .ntv:
+            print("\(self.originalText) \(Chanels.ntv.rawValue) в эфире передача Следствие вели.")
+        case .tnt:
+            print("\(self.originalText) \(Chanels.tnt.rawValue) в эфире сериал Универ.")
+        }
+        } else {
+            print("Телевизор выключен.")
+        }
+    }
+}
+
+var lg = TV(brandModel: "LG55NANO926PB", isON: true, currentChanel: .sts)
+lg.broadcast()
+
+//Task 2: 
+/*
+Время идет, рынок и потребители развиваются, и ваша компания набирает ритм. Поступают все новые и новые требования к эволюции устройств. Перед вами снова инженерная задача — обеспечить пользователей практичным устройством.
+
+Алгоритм выполнения
+
+Создайте новый класс Телевизор (с другим названием класса), который будет уметь все, что и предыдущий.
+
+Реализуйте структуру настроек:
+
+громкость от 0 до 1 (подумайте, какой тип использовать); показывать цветом или черно-белым (подумайте, какой тип данных лучше всего использовать).
+
+Интегрируйте Настройки в новый класс Телевизор.
+
+Вызовите метод и покажите, что сейчас идет по телевизору, учитывая настройки.
+*/
+//Решение
+class NewTV: TV {
+    var volume: Double
+    var isColor: Bool
+    init(brandModel: String, isON: Bool, currentChanel: Chanels, volume: Double, isColor: Bool) {
+        self.volume = volume
+        self.isColor = isColor
+        super.init(brandModel: brandModel, isON: isON, currentChanel: currentChanel)
+    }
+    override func broadcast() {
+        if isON {
+            switch currentChanel {
+            case .first:
+                print("\(self.originalText) \(Chanels.first.rawValue) в эфире в \(isColor ? ("цветном") : ("черно-белом")) режиме прогноз погоды. Звук на громкости \(volume).")
+            case .russia1:
+                print("\(self.originalText) \(Chanels.russia1.rawValue) в эфире в \(isColor ? ("цветном") : ("черно-белом")) режиме программа Вести. Звук на громкости \(volume).")
+
+            case .russia2:
+                print("\(self.originalText) \(Chanels.russia2.rawValue) в эфире в \(isColor ? ("цветном") : ("черно-белом")) режиме программа Европейские новости. Звук на громкости \(volume).")
+
+            case .russia24:
+                print("\(self.originalText) \(Chanels.russia24.rawValue) в эфире в \(isColor ? ("цветном") : ("черно-белом")) режиме реклама. Звук на громкости \(volume).")
+
+            case .sts:
+                print("\(self.originalText) \(Chanels.sts.rawValue) в эфире в \(isColor ? ("цветном") : ("черно-белом")) режиме программа Форт-Боярд. Звук на громкости \(volume).")
+
+            case .ntv:
+                print("\(self.originalText) \(Chanels.ntv.rawValue) в эфире в \(isColor ? ("цветном") : ("черно-белом")) режиме программа Следствие вели. Звук на громкости \(volume).")
+
+            case .tnt:
+                print("\(self.originalText) \(Chanels.tnt.rawValue) в эфире в \(isColor ? ("цветном") : ("черно-белом")) режиме сериал Универ. Звук на громкости \(volume).")
+
+            }
+        } else {
+            print ("Телевизор выключен.")
+        }
+    }
+}
+
+var lg2 = NewTV(brandModel: "LG65NANO926PS", isON: false, currentChanel: .first, volume: 0.2, isColor: false)
+lg2.broadcast()
+
+//Task 3:
+/*
+Порог новой эры пройден. Теперь не только есть радиоволна, но и видеомагнитофоны. Эту технику подключают проводами к телевизору и смотрят в записи свои любимые фильмы. Вам, как ведущему инженеру, срочно нужно адаптировать продукт вашей компании, потому как спрос на устаревший вариант резко пошел вниз.
+
+Алгоритм выполнения
+
+Создайте перечисление со связанными значениями с двумя кейсами: телеканал и подключение по входящему видео порту;
+Интегрируйте эту опцию в Телевизор.
+Вызовите метод и покажите, что сейчас по телевизору.
+*/
+//Решение
+enum VideoChanel: String {
+    case nullChanel = "Нулевой канал"
+}
+enum SettingsSignal: String {
+    case arielSignal = "Подключение через антену."
+    case videoSignal = "Подключение через провод к видеомагнитофону."
+}
+class NewTVInEveryHome: NewTV {
+    var input: SettingsSignal
+    init(brandModel: String, isON: Bool, currentChanel: Chanels, volume: Double, isColor: Bool, input: SettingsSignal) {
+        self.input = input
+        super.init(brandModel: brandModel, isON: isON, currentChanel: currentChanel, volume: volume, isColor: isColor)
+    }
+    override func broadcast() {
+        if isON && volume >= 0.0 && volume <= 1.0 {
+            switch input {
+            case .arielSignal:
+                switch currentChanel {
+                case .first:
+                    print("\(self.originalText) \(Chanels.first.rawValue) в эфире в \(isColor ? ("цветном") : ("черно-белом")) режиме прогноз погоды. Звук на громкости \(volume).")
+                case .russia1:
+                    print("\(self.originalText) \(Chanels.russia1.rawValue) в эфире в \(isColor ? ("цветном") : ("черно-белом")) режиме программа Вести. Звук на громкости \(volume).")
+
+                case .russia2:
+                    print("\(self.originalText) \(Chanels.russia2.rawValue) в эфире в \(isColor ? ("цветном") : ("черно-белом")) режиме программа Европейские новости. Звук на громкости \(volume).")
+
+                case .russia24:
+                    print("\(self.originalText) \(Chanels.russia24.rawValue) в эфире в \(isColor ? ("цветном") : ("черно-белом")) режиме реклама. Звук на громкости \(volume).")
+
+                case .sts:
+                    print("\(self.originalText) \(Chanels.sts.rawValue) в эфире в \(isColor ? ("цветном") : ("черно-белом")) режиме программа Форт-Боярд. Звук на громкости \(volume).")
+
+                case .ntv:
+                    print("\(self.originalText) \(Chanels.ntv.rawValue) в эфире в \(isColor ? ("цветном") : ("черно-белом")) режиме программа Следствие вели. Звук на громкости \(volume).")
+
+                case .tnt:
+                    print("\(self.originalText) \(Chanels.tnt.rawValue) в эфире в \(isColor ? ("цветном") : ("черно-белом")) режиме сериал Универ. Звук на громкости \(volume).")
+
+                }
+            case .videoSignal:
+                print("\(SettingsSignal.videoSignal.rawValue) Просмотр любимого фильма в записи через \(VideoChanel.nullChanel.rawValue) в \(isColor ? ("цветном") : ("черно-белом")) режиме. Звук на громкости \(volume).")
+            }
+        } else {
+            print ("Телевизор выключен, либо введено некорректное значение громкости.")
+        }
+    }
+}
+
+var lg3 = NewTVInEveryHome(brandModel: "LG70NANO926PS", isON: true, currentChanel: .ntv, volume: 0.4, isColor: true, input: .arielSignal)
+lg3.broadcast()
+var lg4 = NewTVInEveryHome(brandModel: "LG49NANO926PS", isON: true, currentChanel: .russia24, volume: 0.5, isColor: false, input: .videoSignal)
+lg4.broadcast()
